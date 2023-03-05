@@ -1,0 +1,11 @@
+body {
+  font-family: sans-serif, arial;
+}
+
+.app-div {
+  border: 2px ridge #DDD;
+
+  margin: auto;
+  width: 40%;
+  padding: 10px;
+}

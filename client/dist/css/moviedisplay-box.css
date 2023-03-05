@@ -1,0 +1,77 @@
+.moviedisplay-box {
+  padding: 0;
+}
+
+.movie-tabs {
+  padding: 0 40px;
+}
+
+.tabfilter {
+  border: 0px solid;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+
+  background-color: #777777;
+  color: white;
+  overflow: hidden;
+
+  box-sizing: border-box;
+  padding: 0 5px;
+  width: 120px;
+  height: 40px;
+}
+
+.selected-tab {
+  background-color: #EEEEEE;
+  color: black;
+
+  margin: 0 2px;
+}
+
+.movie-list {
+  background-color: #EEEEEE;
+
+  box-sizing: border-box;
+  width: 100%;
+  padding: 40px;
+}
+
+.movie-list-item {
+  display: grid;
+  grid-template-columns: 1fr 100px;
+  align-items: center;
+
+  border: 2px outset #AAA;
+  padding: 20px;
+}
+
+.movie-title {
+  grid-column: 1;
+}
+
+.movie-watched, .movie-notwatched {
+  grid-column: 2;
+  align-self: center;
+}
+
+.watched-icon {
+  background-color: #30C030;
+  border-radius: 20px;
+  padding: 5px 0;
+  width: 100px;
+
+  color: white;
+  font-size: 12px;
+  text-align: center;
+}
+
+.notwatched-icon {
+  background-color: #C0C0C0;
+  border-radius: 20px;
+  padding: 5px 0;
+  width: 100px;
+
+  color: white;
+  font-size: 12px;
+  text-align: center;
+}

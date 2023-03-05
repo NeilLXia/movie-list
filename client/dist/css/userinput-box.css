@@ -1,0 +1,29 @@
+.userinput-box {
+  padding: 10px 0 0 0;
+}
+
+.header-bar {
+  padding: 10px 40px 10px 40px;
+}
+
+#add-movie-inputbox {
+  box-sizing: border-box;
+
+  padding: 5px;
+  width: 80%;
+}
+
+#search-button, #add-movie-button {
+  box-sizing: border-box;
+
+  padding: 5px 20px;
+  width: 20%;
+}
+
+#search-input {
+  box-sizing: border-box;
+
+  padding: 5px;
+  margin: 0 0 20px 40%;
+  width: 40%;
+}
