@@ -19,7 +19,7 @@ const MovieTabs = ({currentQuery, setCurrentQuery}) => {
   return (
     <div className="movie-tabs">
       <button id="allmovies-tab" className="tabfilter"onClick={(event) =>
-        filterByTab(event, () => setCurrentQuery({});
+        filterByTab(event, () => setCurrentQuery({})
       )}>All Movies</button>
 
       <button id="watched-tab" className="tabfilter" onClick={(event) =>

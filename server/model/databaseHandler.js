@@ -2,9 +2,25 @@ var db = require('../database.js');
 
 let checkMovieExists = (query) => {
   return db.moviesTable.findAll({where: query})
-  .then((movie) => {
-    return movie.length === 0 ? false : true;
-  })
+  .then((movie) => (movie.length === 0 ? false : true));
+}
+
+let buildQueryString = (query) => {
+  if (Object.keys(query).length === 0) return {order: [['title', 'ASC']]};
+
+  currentQuery = [];
+
+  if (query.title !== undefined) {
+    currentQuery.push(`MATCH (title) AGAINST ('${query.title}')`);
+  }
+  if (query.watched !== undefined) {
+    currentQuery.push(`watched = ${Number(query.watched)}`);
+  }
+
+  return {
+    order: [['title', 'ASC']],
+    where: sequelizeLiteral(currentQuery.join(' AND '))
+  };
 }
 
 let addMovieToDatabase = db.moviesTable.create.bind(db.moviesTable);
@@ -16,24 +32,8 @@ module.exports = {
   getMovies: (query) => (new Promise((resolve, reject) => {
     db.moviesTable.sync()
       .then(() => {
-        searchTerms = {};
-        searchTerms.order = [['title', 'ASC']];
-
-        // Build Search Query
-        if (Object.keys(query).length === 0) {
-          currentQuery = [];
-
-          if (query.title !== undefined) {
-            currentQuery.push(`MATCH (title) AGAINST ('${query.title}')`);
-          }
-          if (query.watched !== undefined) {
-            currentQuery.push(`watched = ${Number(query.watched)}`);
-          }
-
-          searchTerms.where = sequelizeLiteral(currentQuery.join(' AND '));
-        }
-
-        return pullMoviesFromDatabase(searchTerms)
+        let searchTerms = buildQueryString(query);
+        return pullMoviesFromDatabase(searchTerms);
       })
       .then((data) => { resolve(data) })
       .catch((err) => { reject(err) });
@@ -43,9 +43,7 @@ module.exports = {
     db.moviesTable.sync()
       .then(() => checkMovieExists({title}))
       .then((isMovieExists) => {
-        if (isMovieExists) {
-          throw 'Title not appended to database. Existing entry already found.';
-        }
+        if (isMovieExists) throw 'Title not appended to database. Existing entry already found.';
 
         return addMovieToDatabase({ title: title, watched: false })
       })
